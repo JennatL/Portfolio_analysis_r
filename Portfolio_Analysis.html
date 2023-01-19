@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Portfolio Analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="Portfolio_Analysis_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Portfolio_Analysis_files/libs/quarto-html/quarto.js"></script>
+<script src="Portfolio_Analysis_files/libs/quarto-html/popper.min.js"></script>
+<script src="Portfolio_Analysis_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Portfolio_Analysis_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Portfolio_Analysis_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Portfolio_Analysis_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="Portfolio_Analysis_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="Portfolio_Analysis_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Portfolio_Analysis_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Portfolio_Analysis_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="Portfolio_Analysis_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="Portfolio_Analysis_files/libs/htmlwidgets-1.6.0/htmlwidgets.js"></script>
+<script src="Portfolio_Analysis_files/libs/jquery-3.5.1/jquery.min.js"></script>
+<script src="Portfolio_Analysis_files/libs/proj4js-2.3.15/proj4.js"></script>
+<link href="Portfolio_Analysis_files/libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/highcharts.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/highcharts-3d.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/highcharts-more.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/stock.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/map.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/data.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/exporting.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/offline-exporting.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/drilldown.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/item-series.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/annotations.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/export-data.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/funnel.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/heatmap.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/treemap.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/sankey.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/dependency-wheel.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/organization.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/solid-gauge.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/streamgraph.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/sunburst.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/vector.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/wordcloud.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/xrange.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/tilemap.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/venn.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/gantt.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/timeline.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/bullet.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/coloraxis.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/dumbbell.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/lollipop.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/series-label.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/plugins/motion.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/custom/reset.js"></script>
+<script src="Portfolio_Analysis_files/libs/highcharts-9.3.1/modules/boost.js"></script>
+<script src="Portfolio_Analysis_files/libs/highchart-binding-0.9.4/highchart.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#context" id="toc-context" class="nav-link active" data-scroll-target="#context">Context</a></li>
+  <li><a href="#assets-returns" id="toc-assets-returns" class="nav-link" data-scroll-target="#assets-returns">Assets Returns</a></li>
+  <li><a href="#risk-portfolio" id="toc-risk-portfolio" class="nav-link" data-scroll-target="#risk-portfolio">Risk Portfolio</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Portfolio Analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+
+</div>
+<section id="context" class="level2">
+<h2 class="anchored" data-anchor-id="context">Context</h2>
+<p>Measure Portfolio risk using some descriptive statistics but yet very powerful to guide one’s analysis and give more insights about models to be used to explain the relationship between risk and return.</p>
+</section>
+<section id="assets-returns" class="level2">
+<h2 class="anchored" data-anchor-id="assets-returns">Assets Returns</h2>
+<p>We are taking raw price data for <span class="math inline">\(5\)</span> individual assets in order to transform them into monthly returns for a signle portfolio. The portfolio consists of five Exchane Traded Funds (ETF):</p>
+<ul>
+<li>S <span class="math inline">\(\&amp;\)</span> P <span class="math inline">\(500\)</span> ETF (SP) weighted <span class="math inline">\(25 \%\)</span></li>
+<li>A non-US equities ETF (EF) weighted <span class="math inline">\(25 \%\)</span></li>
+<li>A small-cap value ETF (SC) weighted <span class="math inline">\(20 \%\)</span></li>
+<li>An emerging-markets ETF (EM) weighted <span class="math inline">\(20 \%\)</span></li>
+<li>A bond ETF (BG) weighted <span class="math inline">\(10 \%\)</span></li>
+</ul>
+<p>We are taking <span class="math inline">\(5\)</span> years worth of data (the csv file containg data is called <em>Data</em>) from Yahoo Finance with the starting date “<span class="math inline">\(2012/12/31\)</span>” and the ending date “<span class="math inline">\(2017/12/31\)</span>”.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Data</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Monthly Returns</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Visualization of assets returns</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Density of each ETF</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  importing daily price data for the 5 ETF and save them to an xts object  'prices'.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>symbols <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"SP"</span>,<span class="st">"EF"</span>, <span class="st">"SC"</span>, <span class="st">"EM"</span>,<span class="st">"BG"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>prices <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"C:</span><span class="sc">\\</span><span class="st">Users</span><span class="sc">\\</span><span class="st">HJasm</span><span class="sc">\\</span><span class="st">OneDrive</span><span class="sc">\\</span><span class="st">Bureau</span><span class="sc">\\</span><span class="st">Projets</span><span class="sc">\\</span><span class="st">Portfolio_analysis_r</span><span class="sc">\\</span><span class="st">Data.csv"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_types =</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">cols</span>(<span class="at">date =</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">col_date</span>(<span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tk_xts</span>(<span class="at">date_var =</span> date)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(prices,<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 SP       EF       SC       EM       BG
+2012-12-31 128.3092 49.16410 75.06590 39.89233 98.19626
+2013-01-02 131.5977 49.92501 77.12553 40.67489 98.08131
+2013-01-03 131.3004 49.44080 77.02349 40.38705 97.83374
+2013-01-04 131.8771 49.69155 77.62656 40.46800 97.93983
+2013-01-07 131.5166 49.47539 77.17194 40.16218 97.88681
+2013-01-08 131.1382 49.19869 76.87505 39.80238 97.97523
+2013-01-09 131.4716 49.44944 77.09772 39.97328 97.90449
+2013-01-10 132.5168 50.08064 77.19049 40.32409 97.89565
+2013-01-11 132.5077 50.18440 77.13483 40.00026 97.99291
+2013-01-14 132.4177 50.24492 77.11628 40.17117 98.08131</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Converting Daily Prices to Monthly Returns using the <em>log</em> method. We are using <em>xts</em> from the <em>quantmod</em> package as it does the conversion easily (we could use <em>tidyverse</em> also to do the same transformation). We decide to take the first observation in our data as the last trading day of the year.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>prices_monthly <span class="ot">=</span> <span class="fu">to.monthly</span>(prices,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">indexAt =</span> <span class="st">"lastof"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">OHLC =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>asset_returns_xts <span class="ot">=</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">Return.calculate</span>(prices_monthly,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">method =</span> <span class="st">"log"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">na.omit</span>()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(asset_returns_xts, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    SP          EF           SC           EM           BG
+2013-01-31  0.04992297  0.03660636  0.052133434 -0.002935495 -0.006231517
+2013-02-28  0.01267831 -0.01296938  0.016175220 -0.023105260  0.005891222
+2013-03-31  0.03726793  0.01296938  0.040258083 -0.010235026  0.000984796
+2013-04-30  0.01902996  0.04896776  0.001222613  0.012084966  0.009639339
+2013-05-31  0.02333554 -0.03065561  0.041976308 -0.049483623 -0.020214051
+2013-06-30 -0.01343450 -0.02715330 -0.001402980 -0.054739041 -0.015778190
+2013-07-31  0.05038594  0.05186026  0.063541197  0.013159871  0.002687528
+2013-08-31 -0.03045115 -0.01974619 -0.034743332 -0.025705602 -0.008297969
+2013-09-30  0.03115574  0.07533845  0.063870562  0.069588712  0.011144078
+2013-10-31  0.04526645  0.03208178  0.034234199  0.040861329  0.008291862</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>A quick visualization in <a href="#fig-returns">Figure&nbsp;1</a> for the monthly log returns of each ETF.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">highchart</span>(<span class="at">type =</span> <span class="st">"stock"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_title</span>(<span class="at">text =</span> <span class="st">"Monthly Log Returns"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_add_series</span>(asset_returns_xts[, symbols[<span class="dv">1</span>]],</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> symbols[<span class="dv">1</span>]) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_add_series</span>(asset_returns_xts[, symbols[<span class="dv">2</span>]],</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> symbols[<span class="dv">2</span>]) <span class="sc">%&gt;%</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_add_series</span>(asset_returns_xts[, symbols[<span class="dv">3</span>]],</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> symbols[<span class="dv">3</span>]) <span class="sc">%&gt;%</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_add_series</span>(asset_returns_xts[, symbols[<span class="dv">4</span>]],</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> symbols[<span class="dv">4</span>]) <span class="sc">%&gt;%</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_add_series</span>(asset_returns_xts[, symbols[<span class="dv">5</span>]],</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> symbols[<span class="dv">5</span>]) <span class="sc">%&gt;%</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_add_theme</span>(<span class="fu">hc_theme_flat</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_navigator</span>(<span class="at">enabled =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_scrollbar</span>(<span class="at">enabled =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_exporting</span>(<span class="at">enabled =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_legend</span>(<span class="at">enabled =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="fig-returns" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+
+<div class="highchart html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-821a77e62f8c6dd7cb30" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-821a77e62f8c6dd7cb30">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Monthly Log Returns"},"yAxis":{"title":{"text":null}},"credits":{"enabled":false},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"series":[{"data":[[1359590400000,0.0499229684750562],[1362009600000,0.0126783064974649],[1364688000000,0.0372679302958732],[1367280000000,0.0190299561882163],[1369958400000,0.0233355435829417],[1372550400000,-0.0134345036208492],[1375228800000,0.0503859423925439],[1377907200000,-0.0304511509934642],[1380499200000,0.0311557415725146],[1383177600000,0.0452664479159646],[1385769600000,0.0292068669449934],[1388448000000,0.0255975500685599],[1391126400000,-0.0358845680703457],[1393545600000,0.0445105212628771],[1396224000000,0.00825899101816052],[1398816000000,0.00692748537091159],[1401494400000,0.0229412388670553],[1404086400000,0.0204329538190615],[1406764800000,-0.0135286228472031],[1409443200000,0.0387050128707767],[1412035200000,-0.0138914870976246],[1414713600000,0.0232778555456852],[1417305600000,0.0271013695694808],[1419984000000,-0.00254028265622264],[1422662400000,-0.0300771936761439],[1425081600000,0.0546821493433152],[1427760000000,-0.0158314857747115],[1430352000000,0.00978601546958213],[1433030400000,0.0127742418546086],[1435622400000,-0.0203250982934167],[1438300800000,0.0219061561058105],[1440979200000,-0.0633070590651519],[1443571200000,-0.0253952003308955],[1446249600000,0.0818438478405952],[1448841600000,0.00364850196181088],[1451520000000,-0.0174358377504928],[1454198400000,-0.0510686256577895],[1456704000000,-0.000826322621327868],[1459382400000,0.0650984027137573],[1461974400000,0.00393343223643772],[1464652800000,0.0168685077498187],[1467244800000,0.00347182090872877],[1469923200000,0.0358220317693059],[1472601600000,0.00119670389985682],[1475193600000,5.83956045812073e-05],[1477872000000,-0.0174890266019974],[1480464000000,0.0361761115990245],[1483142400000,0.0200686581848641],[1485820800000,0.0177365329766994],[1488240000000,0.0385391843912695],[1490918400000,0.00124919411121294],[1493510400000,0.00987722044430317],[1496188800000,0.014014248361585],[1498780800000,0.00635469680993417],[1501459200000,0.0203458592996055],[1504137600000,0.00291339675646451],[1506729600000,0.0199491538958627],[1509408000000,0.0232907586883302],[1512000000000,0.0301079902830876],[1514678400000,0.0158325647480932]],"name":"SP"},{"data":[[1359590400000,0.036606357660212],[1362009600000,-0.0129693768058883],[1364688000000,0.0129693768058883],[1367280000000,0.0489677595647868],[1369958400000,-0.030655605808199],[1372550400000,-0.0271532966165866],[1375228800000,0.0518602597204674],[1377907200000,-0.0197461885739507],[1380499200000,0.0753384524755201],[1383177600000,0.0320817766326984],[1385769600000,0.00544941923570352],[1388448000000,0.0215238060420591],[1391126400000,-0.0534132609941533],[1393545600000,0.0595048851401234],[1396224000000,-0.00460253733671756],[1398816000000,0.0165294028420071],[1401494400000,0.0158284861147804],[1404086400000,0.00916827518237717],[1406764800000,-0.026379531422247],[1409443200000,0.00180028858170189],[1412035200000,-0.0395984855950884],[1414713600000,-0.00265472923986465],[1417305600000,0.000625248276797663],[1419984000000,-0.0407436874213323],[1422662400000,0.00622641171696525],[1425081600000,0.0614506453899422],[1427760000000,-0.0143887466415578],[1430352000000,0.0358166248478158],[1433030400000,0.0019526043709277],[1435622400000,-0.031671821717306],[1438300800000,0.0201143877332655],[1440979200000,-0.0771524107594885],[1443571200000,-0.0451948528379211],[1446249600000,0.0640259069840723],[1448841600000,-0.00755581380300363],[1451520000000,-0.0235888800009683],[1454198400000,-0.0567578152530044],[1456704000000,-0.0339139019954944],[1459382400000,0.0637455947647125],[1461974400000,0.0219751955771752],[1464652800000,-0.000856107257818373],[1467244800000,-0.0244945616360019],[1469923200000,0.0390001766950951],[1472601600000,0.00532695212623135],[1475193600000,0.0132790445412603],[1477872000000,-0.0224036490141968],[1480464000000,-0.0179745049825604],[1483142400000,0.0267059400895553],[1485820800000,0.0323818455984117],[1488240000000,0.0118364428718687],[1490918400000,0.031805674822321],[1493510400000,0.023952205763865],[1496188800000,0.0348101976378778],[1498780800000,0.00295592222815078],[1501459200000,0.0261879549365212],[1504137600000,-0.000448342511581323],[1506729600000,0.0233428392112245],[1509408000000,0.0166536668188426],[1512000000000,0.00687000462873666],[1514678400000,0.0126869861788821]],"name":"EF"},{"data":[[1359590400000,0.052133434157998],[1362009600000,0.0161752203262813],[1364688000000,0.0402580832292703],[1367280000000,0.00122261321480011],[1369958400000,0.0419763078517352],[1372550400000,-0.00140298022882845],[1375228800000,0.0635411970286119],[1377907200000,-0.0347433318654611],[1380499200000,0.0638705624116289],[1383177600000,0.0342341988066748],[1385769600000,0.0416609210781971],[1388448000000,0.0128910625308851],[1391126400000,-0.0357753308546238],[1393545600000,0.045257403433574],[1396224000000,0.0133145415164817],[1398816000000,-0.0231841210213366],[1401494400000,0.00620534472500545],[1404086400000,0.0377147164939755],[1406764800000,-0.0520095348800771],[1409443200000,0.0436578629086943],[1412035200000,-0.0612640153590247],[1414713600000,0.0688746647171099],[1417305600000,0.0047737389466791],[1419984000000,0.0252944907028176],[1422662400000,-0.054627962916129],[1425081600000,0.0569147661955958],[1427760000000,0.0101585056231697],[1430352000000,-0.0184176369738465],[1433030400000,0.00750990427398879],[1435622400000,0.0041677785664147],[1438300800000,-0.0273752631541226],[1440979200000,-0.0472683504755347],[1443571200000,-0.0384637056673345],[1446249600000,0.0635897287605909],[1448841600000,0.0244152906105626],[1451520000000,-0.0521531627356371],[1454198400000,-0.0603069185320608],[1456704000000,0.020605356723939],[1459382400000,0.0899059462929683],[1461974400000,0.0210441851640972],[1464652800000,0.00439710726549336],[1467244800000,0.00829583176483695],[1469923200000,0.0493483179733056],[1472601600000,0.0112611616239873],[1475193600000,0.00861490263380027],[1477872000000,-0.0381348352501387],[1480464000000,0.125246421927436],[1483142400000,0.0314932238940493],[1485820800000,-0.012143876469545],[1488240000000,0.0134289167098629],[1490918400000,-0.00653315801671628],[1493510400000,0.00510778835636572],[1496188800000,-0.0228626731549069],[1498780800000,0.0291517193790423],[1501459200000,0.00748160967226319],[1504137600000,-0.0275646141045787],[1506729600000,0.0823217200576778],[1509408000000,0.00591598419331252],[1512000000000,0.036913302321242],[1514678400000,0.00308266448511318]],"name":"SC"},{"data":[[1359590400000,-0.00293549467634246],[1362009600000,-0.0231052596741939],[1364688000000,-0.0102350263755713],[1367280000000,0.0120849664436413],[1369958400000,-0.0494836230589017],[1372550400000,-0.0547390407776791],[1375228800000,0.0131598707200435],[1377907200000,-0.0257056023504227],[1380499200000,0.0695887124108685],[1383177600000,0.040861328863957],[1385769600000,-0.00259404692434329],[1388448000000,-0.00407996861310789],[1391126400000,-0.0903223950786187],[1393545600000,0.0332202516086162],[1396224000000,0.038021890900434],[1398816000000,0.00777272126500028],[1401494400000,0.0290912136268129],[1404086400000,0.023725301538279],[1406764800000,0.0135555878931406],[1409443200000,0.0279046871000137],[1412035200000,-0.0808568207320621],[1414713600000,0.0140964689225132],[1417305600000,-0.0155412966888839],[1419984000000,-0.0404415118391337],[1422662400000,-0.00689571010786194],[1425081600000,0.0431360277747306],[1427760000000,-0.0150862050950593],[1430352000000,0.066281436319815],[1433030400000,-0.0419110525605899],[1435622400000,-0.0297403036960313],[1438300800000,-0.0651781778915139],[1440979200000,-0.0936952379862031],[1443571200000,-0.0306420833921925],[1446249600000,0.0618081165703628],[1448841600000,-0.0255601905648062],[1451520000000,-0.0389522446188471],[1454198400000,-0.0516367043051638],[1456704000000,-0.00821160117308617],[1459382400000,0.121879153242042],[1461974400000,0.00407900727307542],[1464652800000,-0.0376283485388047],[1467244800000,0.044581939817089],[1469923200000,0.0524421137569373],[1472601600000,0.00879848202293365],[1475193600000,0.0248728923494523],[1477872000000,-0.00831226919867545],[1480464000000,-0.0451618441401216],[1483142400000,-0.00252388153775174],[1485820800000,0.0644314718150478],[1488240000000,0.01725784005707],[1490918400000,0.0361888529361427],[1493510400000,0.0168664024521998],[1496188800000,0.0280600127994952],[1498780800000,0.00922375557016064],[1501459200000,0.0565945350003898],[1504137600000,0.0232437643859278],[1506729600000,-0.000446242134324759],[1509408000000,0.0322784733486801],[1512000000000,-0.00389691028940131],[1514678400000,0.0322455587601747]],"name":"EM"},{"data":[[1359590400000,-0.00623151656492027],[1362009600000,0.00589122167702172],[1364688000000,0.000984796030780721],[1367280000000,0.00963933935711125],[1369958400000,-0.0202140511353042],[1372550400000,-0.0157781895677278],[1375228800000,0.00268752780811088],[1377907200000,-0.00829796862648013],[1380499200000,0.0111440779750067],[1383177600000,0.00829186188014752],[1385769600000,-0.00250810193746176],[1388448000000,-0.00736741013348396],[1391126400000,0.01529146694471],[1393545600000,0.00375410351569627],[1396224000000,-0.00148116031065193],[1398816000000,0.00818237246380438],[1401494400000,0.0117249433183853],[1404086400000,-0.000575395333918038],[1406764800000,-0.00251627191420845],[1409443200000,0.0114311129078652],[1412035200000,-0.00617056243146052],[1414713600000,0.010584548634017],[1417305600000,0.00654875131577626],[1419984000000,-0.000238229537901091],[1422662400000,0.0203150986621798],[1425081600000,-0.00898673862468158],[1427760000000,0.00373700660991538],[1430352000000,-0.00323536084070408],[1433030400000,-0.00438301227800153],[1435622400000,-0.0108222664054072],[1438300800000,0.00858856112136142],[1440979200000,-0.00336503632355001],[1443571200000,0.00808502392909194],[1446249600000,0.000686048991656918],[1448841600000,-0.00390208153466975],[1451520000000,-0.0038323739361017],[1454198400000,0.0123300966376556],[1456704000000,0.00883175804003056],[1459382400000,0.00870419245246712],[1461974400000,0.00254223924868047],[1464652800000,0.000137186670725598],[1467244800000,0.0191679970902676],[1469923200000,0.00543422700928886],[1472601600000,-0.00215902597865636],[1475193600000,0.0005120336152169],[1477872000000,-0.00820380235848628],[1480464000000,-0.0259919125574175],[1483142400000,0.00253411487820898],[1485820800000,0.0021260786767705],[1488240000000,0.00643853607063782],[1490918400000,-0.00055292739178725],[1493510400000,0.00902929709771882],[1496188800000,0.00684735163689787],[1498780800000,-0.000182775684257841],[1501459200000,0.00333451493060544],[1504137600000,0.00936905228239926],[1506729600000,-0.00573219182215734],[1509408000000,0.000978086259888045],[1512000000000,-0.00148411097344958],[1514678400000,0.00340264722050154]],"name":"BG"}],"navigator":{"enabled":false},"scrollbar":{"enabled":false},"legend":{"enabled":true}},"theme":{"colors":["#f1c40f","#2ecc71","#9b59b6","#e74c3c","#34495e","#3498db","#1abc9c","#f39c12","#d35400"],"chart":{"backgroundColor":"#ECF0F1"},"xAxis":{"gridLineDashStyle":"Dash","gridLineWidth":1,"gridLineColor":"#BDC3C7","lineColor":"#BDC3C7","minorGridLineColor":"#BDC3C7","tickColor":"#BDC3C7","tickWidth":1},"yAxis":{"gridLineDashStyle":"Dash","gridLineColor":"#BDC3C7","lineColor":"#BDC3C7","minorGridLineColor":"#BDC3C7","tickColor":"#BDC3C7","tickWidth":1},"legendBackgroundColor":"rgba(0, 0, 0, 0.5)","background2":"#505053","dataLabelsColor":"#B0B0B3","textColor":"#34495e","contrastTextColor":"#F0F0F3","maskColor":"rgba(255,255,255,0.3)"},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadCSV":"Download CSV","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","downloadXLS":"Download XLS","drillUpText":"◁ Back to {series.name}","exitFullscreen":"Exit from full screen","exportData":{"annotationHeader":"Annotations","categoryDatetimeHeader":"DateTime","categoryHeader":"Category"},"hideData":"Hide data table","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbolMagnitude":1000,"numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"shortWeekdays":["Sat","Sun","Mon","Tue","Wed","Thu","Fri"],"thousandsSep":" ","viewData":"View data table","viewFullscreen":"View in full screen","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"stock","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: Monthly Log Returns</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>Inspect each ETF with a histogram and density in <a href="#fig-returns-density">Figure&nbsp;2</a>.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>asset_returns_tidyverse <span class="ot">=</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                        prices <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">to.monthly</span>(<span class="at">indexAt =</span> <span class="st">"lastof"</span>, <span class="at">OHLC =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                        <span class="co"># convert the index to a date</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">data.frame</span>(<span class="at">date =</span> <span class="fu">index</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">remove_rownames</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">gather</span>(asset, returns, <span class="sc">-</span>date) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">group_by</span>(asset) <span class="sc">%&gt;%</span>  </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">mutate</span>(<span class="at">returns =</span> (<span class="fu">log</span>(returns) <span class="sc">-</span> <span class="fu">log</span>(<span class="fu">lag</span>(returns)))) <span class="sc">%&gt;%</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">spread</span>(asset, returns) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">select</span>(date, symbols) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">na.omit</span>()</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  asset_returns_of <span class="ot">=</span> </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>                    asset_returns_tidyverse <span class="sc">%&gt;%</span> </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">gather</span>(asset, returns, <span class="sc">-</span>date)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot to visualize</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>asset_returns_of <span class="sc">%&gt;%</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>            <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> returns)) <span class="sc">+</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">color =</span> asset), <span class="at">alpha =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">fill =</span> asset), <span class="at">alpha =</span> <span class="fl">0.45</span>, <span class="at">binwidth =</span> .<span class="dv">01</span>) <span class="sc">+</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>            <span class="fu">guides</span>(<span class="at">fill =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>            <span class="fu">facet_wrap</span>(<span class="sc">~</span>asset) <span class="sc">+</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>            <span class="fu">ggtitle</span>(<span class="st">"Monthly Returns Since 2013-01-31"</span>) <span class="sc">+</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>            <span class="fu">xlab</span>(<span class="st">"monthly returns"</span>) <span class="sc">+</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>            <span class="fu">ylab</span>(<span class="st">"distribution"</span>) <span class="sc">+</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme_update</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-returns-density" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Portfolio_Analysis_files/figure-html/fig-returns-density-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: Monthly Returns Density</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="risk-portfolio" class="level2">
+<h2 class="anchored" data-anchor-id="risk-portfolio">Risk Portfolio</h2>
+<p>In this section we are calculating some descriptive statistics as the main measure of portfolio risk. We are specifically interested in the dispersion of returns. We are considering the standard deviation that measures the extent to which a portfolio’s returns are dispersed around their mean (A risk or volatile profile has a high standard deviation) and the skewness and kurtosis to see how a portfolio’s returns are distributed. We are also taking a look at the rolling volatility to make sure we didn’t miss anything by considering only the total volatility.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Portfolio returns</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Visualization of Portfolio returns</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href="">Standard deviation</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false" href="">Skewness</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-5" role="tab" aria-controls="tabset-2-5" aria-selected="false" href="">Kurtosis</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>We attribute the appropriate weight for each ETF to calculate the returns for one portfolio.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># weights</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.25</span>, <span class="fl">0.20</span>, <span class="fl">0.20</span>, <span class="fl">0.10</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># check if weights are attributed correctly to our ETF and check if the weights sum to 100% </span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#tibble(w, symbols)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#tibble(w, symbols) %&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                    <span class="co">#summarise(total_weight = sum(w))</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># use the weights to convert the returns of 5 assets to the returns of 1 portfolio</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># we can change the parameter rebalance_on to years for annual rebalancing.  </span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>portfolio_returns_xts_monthly <span class="ot">=</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">Return.portfolio</span>(asset_returns_xts,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">weights =</span> w,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>                        <span class="at">rebalance_on =</span> <span class="st">"months"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                    <span class="st">`</span><span class="at">colnames&lt;-</span><span class="st">`</span>(<span class="st">"returns"</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(portfolio_returns_xts_monthly, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 returns
+2013-01-31  0.0308487678
+2013-02-28 -0.0008696533
+2013-03-31  0.0186624177
+2013-04-30  0.0206248788
+2013-05-31 -0.0053528837
+2013-06-30 -0.0229531732
+2013-07-31  0.0411705169
+2013-08-31 -0.0254689186
+2013-09-30  0.0544298113
+2013-10-31  0.0351853479</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">highchart</span>(<span class="at">type =</span> <span class="st">"stock"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_title</span>(<span class="at">text =</span> <span class="st">"Portfolio Monthly Returns"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_add_series</span>(portfolio_returns_xts_monthly<span class="sc">$</span>returns,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> <span class="st">"Rebalanced Monthly"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_add_theme</span>(<span class="fu">hc_theme_flat</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_navigator</span>(<span class="at">enabled =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_scrollbar</span>(<span class="at">enabled =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_legend</span>(<span class="at">enabled =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_exporting</span>(<span class="at">enabled =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="fig-returns-portfolio" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+
+<div class="highchart html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-518cce80707011aab81a" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-518cce80707011aab81a">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Portfolio Monthly Returns"},"yAxis":{"title":{"text":null}},"credits":{"enabled":false},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"series":[{"data":[[1359590400000,0.0308487677736562],[1362009600000,-0.000869653278986138],[1364688000000,0.0186624177492583],[1367280000000,0.0206248788056502],[1369958400000,-0.00535288371127796],[1372550400000,-0.0229531732174333],[1375228800000,0.0411705168587952],[1377907200000,-0.0254689185976785],[1380499200000,0.0544298112740089],[1383177600000,0.0351853478593069],[1385769600000,0.0162266361821988],[1388448000000,0.0128058167978617],[1391126400000,-0.0460148557583023],[1393545600000,0.0420747929607579],[1396224000000,0.0110332838726788],[1398816000000,0.00360017934834289],[1401494400000,0.0179242372476611],[1404086400000,0.0196307713234187],[1406764800000,-0.0179194551561708],[1409443200000,0.0255819466556477],[1412035200000,-0.0424137166345417],[1414713600000,0.0228084631677814],[1417305600000,0.00543301804470642],[1419984000000,-0.013874219700442],[1422662400000,-0.0162359202283748],[1425081600000,0.0481446836149115],[1427760000000,-0.00816689733745357],[1430352000000,0.0206498838644729],[1433030400000,-0.00363681932873627],[1435622400000,-0.0191959616691447],[1438300800000,-0.00714669613722219],[1440979200000,-0.0636440887808625],[1443571200000,-0.0306601687112004],[1446249600000,0.0616156126715233],[1448841600000,-0.0015960161046138],[1451520000000,-0.0288604983023723],[1454198400000,-0.0481123251313778],[1456704000000,-0.00532312924003198],[1459382400000,0.0754384385218663],[1461974400000,0.0117560193657058],[1464652800000,-0.00262942946458966],[1467244800000,0.00723666884359364],[1469923200000,0.0396070611630779],[1472601600000,0.00542694013804068],[1475193600000,0.0100831223946325],[1477872000000,-0.02008297002966],[1480464000000,0.0179681259558373],[1483142400000,0.0177409295276854],[1485820800000,0.0231997215805553],[1488240000000,0.0193751117762351],[1490918400000,0.0141395634780901],[1493510400000,0.013755124423527],[1496188800000,0.0139303145924732],[1498780800000,0.00998447218093612],[1501459200000,0.024782133986623],[1504137600000,0.000688998845730371],[1506729600000,0.0266248746792268],[1509408000000,0.0177228065111805],[1512000000000,0.0156993660369793],[1514678400000,0.0145357971028517]],"name":"Rebalanced Monthly","color":"darkblue"}],"navigator":{"enabled":false},"scrollbar":{"enabled":false},"legend":{"enabled":true}},"theme":{"colors":["#f1c40f","#2ecc71","#9b59b6","#e74c3c","#34495e","#3498db","#1abc9c","#f39c12","#d35400"],"chart":{"backgroundColor":"#ECF0F1"},"xAxis":{"gridLineDashStyle":"Dash","gridLineWidth":1,"gridLineColor":"#BDC3C7","lineColor":"#BDC3C7","minorGridLineColor":"#BDC3C7","tickColor":"#BDC3C7","tickWidth":1},"yAxis":{"gridLineDashStyle":"Dash","gridLineColor":"#BDC3C7","lineColor":"#BDC3C7","minorGridLineColor":"#BDC3C7","tickColor":"#BDC3C7","tickWidth":1},"legendBackgroundColor":"rgba(0, 0, 0, 0.5)","background2":"#505053","dataLabelsColor":"#B0B0B3","textColor":"#34495e","contrastTextColor":"#F0F0F3","maskColor":"rgba(255,255,255,0.3)"},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadCSV":"Download CSV","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","downloadXLS":"Download XLS","drillUpText":"◁ Back to {series.name}","exitFullscreen":"Exit from full screen","exportData":{"annotationHeader":"Annotations","categoryDatetimeHeader":"DateTime","categoryHeader":"Category"},"hideData":"Hide data table","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbolMagnitude":1000,"numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"shortWeekdays":["Sat","Sun","Mon","Tue","Wed","Thu","Fri"],"thousandsSep":" ","viewData":"View data table","viewFullscreen":"View in full screen","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"stock","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3: Portfolio Monthly Returns Line Chart</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<p>The <a href="#fig-returns-scatter">Figure&nbsp;4</a> shows that <span class="math inline">\(2015\)</span> was the riskiest year. The <span class="math inline">\(\textcolor{red}{red}\)</span> points represent the returns that are one standard deviation below the mean and the <span class="math inline">\(\textcolor{green}{green}\)</span> points represent the ones above the mean. We see that we don’t have any monthly returns that are at least one standard deviation from the mean during <span class="math inline">\(2017\)</span>.</p>
+<section id="scatter-of-returns" class="level3">
+<h3 class="anchored" data-anchor-id="scatter-of-returns">Scatter of returns</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>portfolio_sd <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">StdDev</span>(asset_returns_xts, <span class="at">weights =</span> w)<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>)[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># portfolio returns </span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>portfolio_returns_tq_monthly <span class="ot">=</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        asset_returns_of <span class="sc">%&gt;%</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tq_portfolio</span>(<span class="at">assets_col =</span> asset,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">returns_col =</span> returns,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">weights =</span> w,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">col_rename =</span> <span class="st">"returns"</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">rebalance_on =</span> <span class="st">"months"</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Viz of portfolio returns / scatter plot </span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>sd_viz <span class="ot">=</span> <span class="fu">sd</span>(portfolio_returns_tq_monthly<span class="sc">$</span>returns)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>mean_viz <span class="ot">=</span> <span class="fu">mean</span>(portfolio_returns_tq_monthly<span class="sc">$</span>returns)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>portfolio_returns_tq_monthly <span class="sc">%&gt;%</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">hist_col_red =</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>            <span class="fu">if_else</span>(returns <span class="sc">&lt;</span> (mean_viz <span class="sc">-</span> sd_viz),</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>                returns, <span class="fu">as.numeric</span>(<span class="cn">NA</span>)),</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">hist_col_green =</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>            <span class="fu">if_else</span>(returns <span class="sc">&gt;</span> (mean_viz <span class="sc">+</span> sd_viz),</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>                returns, <span class="fu">as.numeric</span>(<span class="cn">NA</span>)),</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">hist_col_blue =</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>            <span class="fu">if_else</span>(returns <span class="sc">&gt;</span> (mean_viz <span class="sc">-</span> sd_viz) <span class="sc">&amp;</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>                returns <span class="sc">&lt;</span> (mean_viz <span class="sc">+</span> sd_viz),</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>                returns, <span class="fu">as.numeric</span>(<span class="cn">NA</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date)) <span class="sc">+</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> hist_col_red),</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> hist_col_green),</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">"#006600"</span>) <span class="sc">+</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> hist_col_blue),</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> (mean_viz <span class="sc">+</span> sd_viz),</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>                <span class="at">linetype =</span> <span class="st">"longdash"</span>) <span class="sc">+</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> (mean_viz<span class="sc">-</span>sd_viz),</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>                <span class="at">linetype =</span> <span class="st">"longdash"</span>) <span class="sc">+</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatter Plot with one standard deviation above and below the mean"</span>, <span class="at">y =</span> <span class="st">"monthly returns"</span>) <span class="sc">+</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_date</span>(<span class="at">breaks =</span> <span class="fu">pretty_breaks</span>(<span class="at">n =</span> <span class="dv">8</span>)) <span class="sc">+</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-returns-scatter" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Portfolio_Analysis_files/figure-html/fig-returns-scatter-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4: Scatter of Returns</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="expected-returns-vs-risk" class="level3">
+<h3 class="anchored" data-anchor-id="expected-returns-vs-risk">Expected returns vs Risk</h3>
+<p>Here we are visualizing the expected mean returns in comparison with the standard deviation of monthly returns (risk profile). We can see that S <span class="math inline">\(\&amp;\)</span> P <span class="math inline">\(500\)</span> has a higher expected return for a little more risk, EM and EF with high risk and low expected return, and finally SC with high risk but with high expected return.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>asset_returns_of <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(asset) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">expected_return =</span> <span class="fu">mean</span>(returns),  </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">stand_dev =</span> <span class="fu">sd</span>(returns)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_row</span>(<span class="at">asset =</span> <span class="st">"Portfolio"</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">stand_dev =</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sd</span>(portfolio_returns_tq_monthly<span class="sc">$</span>returns),</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">expected_return =</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mean</span>(portfolio_returns_tq_monthly<span class="sc">$</span>returns)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> stand_dev,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> expected_return,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> asset)) <span class="sc">+</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>            <span class="fu">sd</span>(portfolio_returns_tq_monthly<span class="sc">$</span>returns) <span class="sc">*</span> <span class="fl">1.11</span>,</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>            <span class="fu">mean</span>(portfolio_returns_tq_monthly<span class="sc">$</span>returns),</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Portfolio"</span>)) <span class="sc">+</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">"expected return"</span>) <span class="sc">+</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"standard deviation"</span>) <span class="sc">+</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Expected Monthly Returns versus Risk"</span>) <span class="sc">+</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x){ <span class="fu">paste0</span>(x, <span class="st">"%"</span>)}) <span class="sc">+</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_update</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="Portfolio_Analysis_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="rolling-volatility" class="level3">
+<h3 class="anchored" data-anchor-id="rolling-volatility">Rolling Volatility</h3>
+<p>For better management of volatility, it is a good idea to take allok at rolling windows. We are considering a window of <span class="math inline">\(24\)</span> months to see how the volatility has behaved over time in order to make better hypotheses about the past causes, future probabilities and rebalancing.</p>
+<p>In <a href="#fig-returns-scatter">Figure&nbsp;4</a> during <span class="math inline">\(2017\)</span> we had zero monthly returns that are lest one standard deviation from the mean which translates to low rolling volatility as the <span class="math inline">\(24\)</span> month rolling portfolio volatility <a href="#fig-rolling-port">Figure&nbsp;5</a> confirms, since we have a spike in rolling volatility in <span class="math inline">\(2016\)</span> followed by a consist falling volatility through mid <span class="math inline">\(2017\)</span>.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># window of 24 months</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>window <span class="ot">=</span> <span class="dv">24</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>portfolio_rolling_sd <span class="ot">=</span> </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rollapply</span>(portfolio_returns_xts_monthly,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">FUN =</span> sd,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> window) <span class="sc">%&gt;%</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">colnames&lt;-</span><span class="st">`</span>(<span class="st">"rolling_sd"</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="fu">highchart</span>(<span class="at">type =</span> <span class="st">"stock"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_title</span>(<span class="at">text =</span> <span class="st">"24-Month Rolling Volatility"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_add_series</span>(<span class="fu">round</span>(portfolio_rolling_sd, <span class="dv">4</span>) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_add_theme</span>(<span class="fu">hc_theme_flat</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_yAxis</span>(</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">labels =</span> <span class="fu">list</span>(<span class="at">format =</span> <span class="st">"{value}%"</span>),</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">opposite =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_navigator</span>(<span class="at">enabled =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_scrollbar</span>(<span class="at">enabled =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_exporting</span>(<span class="at">enabled=</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_legend</span>(<span class="at">enabled =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="fig-rolling-port" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+
+<div class="highchart html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-738c1e9be7564470f7df" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-738c1e9be7564470f7df">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"24-Month Rolling Volatility"},"yAxis":{"title":{"text":null},"labels":{"format":"{value}%"},"opposite":false},"credits":{"enabled":false},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"series":[{"data":[[1419984000000,2.62],[1422662400000,2.62],[1425081600000,2.75],[1427760000000,2.76],[1430352000000,2.76],[1433030400000,2.76],[1435622400000,2.74],[1438300800000,2.66],[1440979200000,2.95],[1443571200000,2.83],[1446249600000,3.01],[1448841600000,3],[1451520000000,3.05],[1454198400000,3.06],[1456704000000,2.92],[1459382400000,3.32],[1461974400000,3.33],[1464652800000,3.31],[1467244800000,3.29],[1469923200000,3.37],[1472601600000,3.33],[1475193600000,3.21],[1477872000000,3.21],[1480464000000,3.23],[1483142400000,3.23],[1485820800000,3.23],[1488240000000,3.11],[1490918400000,3.11],[1493510400000,3.09],[1496188800000,3.1],[1498780800000,3.06],[1501459200000,3.07],[1504137600000,2.68],[1506729600000,2.56],[1509408000000,2.34],[1512000000000,2.33],[1514678400000,2.17]],"color":"darkblue"}],"navigator":{"enabled":false},"scrollbar":{"enabled":false},"legend":{"enabled":true}},"theme":{"colors":["#f1c40f","#2ecc71","#9b59b6","#e74c3c","#34495e","#3498db","#1abc9c","#f39c12","#d35400"],"chart":{"backgroundColor":"#ECF0F1"},"xAxis":{"gridLineDashStyle":"Dash","gridLineWidth":1,"gridLineColor":"#BDC3C7","lineColor":"#BDC3C7","minorGridLineColor":"#BDC3C7","tickColor":"#BDC3C7","tickWidth":1},"yAxis":{"gridLineDashStyle":"Dash","gridLineColor":"#BDC3C7","lineColor":"#BDC3C7","minorGridLineColor":"#BDC3C7","tickColor":"#BDC3C7","tickWidth":1},"legendBackgroundColor":"rgba(0, 0, 0, 0.5)","background2":"#505053","dataLabelsColor":"#B0B0B3","textColor":"#34495e","contrastTextColor":"#F0F0F3","maskColor":"rgba(255,255,255,0.3)"},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadCSV":"Download CSV","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","downloadXLS":"Download XLS","drillUpText":"◁ Back to {series.name}","exitFullscreen":"Exit from full screen","exportData":{"annotationHeader":"Annotations","categoryDatetimeHeader":"DateTime","categoryHeader":"Category"},"hideData":"Hide data table","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbolMagnitude":1000,"numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"shortWeekdays":["Sat","Sun","Mon","Tue","Wed","Thu","Fri"],"thousandsSep":" ","viewData":"View data table","viewFullscreen":"View in full screen","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"stock","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+<p></p><figcaption class="figure-caption">Figure&nbsp;5: Rolling Portfolio Volatility</figcaption><p></p>
+</figure>
+</div>
+</div>
+</section>
+</div>
+<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
+<section id="returns-histogram" class="level3">
+<h3 class="anchored" data-anchor-id="returns-histogram">Returns Histogram</h3>
+<p>We have a negative skew distribution of monthly returns meaning multilple small positive returns and a few large negative returns. The <span class="math inline">\(\textcolor{red}{red}\)</span> rectangles in <a href="#fig-skew_hist">Figure&nbsp;6</a> represents the monthly returns that fall <span class="math inline">\(2\)</span> standard deviations below the mean. One could be more conservative regarding the choice of threshold and depending on which returns one are interested in to. We can see that we have:</p>
+<ul>
+<li>One highly negative return less than <span class="math inline">\(-0.06\)</span></li>
+<li>One highly positive return greater than <span class="math inline">\(-0.06\)</span></li>
+<li>A cluster of negative returns around <span class="math inline">\(-0.02\)</span></li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>skew_xts <span class="ot">=</span> <span class="fu">skewness</span>(portfolio_returns_xts_monthly<span class="sc">$</span>returns)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>mean_xts <span class="ot">=</span> <span class="fu">mean</span>(portfolio_returns_xts_monthly<span class="sc">$</span>returns)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>median_xts <span class="ot">=</span> <span class="fu">median</span>(portfolio_returns_xts_monthly<span class="sc">$</span>returns)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>some_stats <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Statistics =</span> <span class="fu">c</span>(<span class="st">"mean"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"median"</span>),</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">value =</span> <span class="fu">c</span>(mean_xts,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>                                 median_xts)) </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>portfolio_returns_tq_monthly <span class="sc">%&gt;%</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">hist_col_red =</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>                <span class="fu">if_else</span>(returns <span class="sc">&lt;</span> (<span class="fu">mean</span>(returns) <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">sd</span>(returns)),</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>                returns, <span class="fu">as.numeric</span>(<span class="cn">NA</span>)),</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">returns =</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>                <span class="fu">if_else</span>(returns <span class="sc">&gt;</span> (<span class="fu">mean</span>(returns) <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">sd</span>(returns)),</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>                returns, <span class="fu">as.numeric</span>(<span class="cn">NA</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(returns)) <span class="sc">+</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> hist_col_red),</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> .<span class="dv">7</span>,</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">binwidth =</span> .<span class="dv">005</span>,</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">"red"</span>,</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> returns),</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> .<span class="dv">7</span>,</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>            <span class="at">binwidth =</span> .<span class="dv">005</span>,</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">"darkblue"</span>,</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">+</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_density(col = "darkblue") + </span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">data =</span> some_stats, <span class="fu">aes</span>(<span class="at">xintercept =</span> value,</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>                               <span class="at">linetype =</span> Statistics,</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>                               <span class="at">col =</span> Statistics), <span class="at">linewidth =</span> <span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">pretty_breaks</span>(<span class="at">n =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="fu">xlab</span>(<span class="st">"monthly returns"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-skew_hist" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Portfolio_Analysis_files/figure-html/fig-skew_hist-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;6: Returns Histogram</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="rolling-skewness" class="level3">
+<h3 class="anchored" data-anchor-id="rolling-skewness">Rolling Skewness</h3>
+<p>Even if the overall skewness is negative as we have seen (<a href="#fig-skew_hist">Figure&nbsp;6</a>), the <span class="math inline">\(24\)</span> month skewness in <a href="#fig-skew_rolling">Figure&nbsp;7</a> has been positive for about half the lifetime of the portfolio.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>window <span class="ot">=</span> <span class="dv">24</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>rolling_skew_xts <span class="ot">=</span> <span class="fu">rollapply</span>(portfolio_returns_xts_monthly,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">FUN =</span> skewness,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">width =</span> window) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">na.omit</span>()</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">highchart</span>(<span class="at">type =</span> <span class="st">"stock"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">hc_title</span>(<span class="at">text =</span> <span class="st">"Rolling 24-Month Skewness"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">hc_add_series</span>(rolling_skew_xts,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>                        <span class="at">name =</span> <span class="st">"Rolling skewness"</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">hc_yAxis</span>(<span class="at">title =</span> <span class="fu">list</span>(<span class="at">text =</span> <span class="st">"skewness"</span>),</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>                        <span class="at">opposite =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>                        <span class="at">max =</span> <span class="dv">1</span>,</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>                        <span class="at">min =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">hc_navigator</span>(<span class="at">enabled =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">hc_scrollbar</span>(<span class="at">enabled =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">hc_add_theme</span>(<span class="fu">hc_theme_flat</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">hc_exporting</span>(<span class="at">enabled =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="fig-skew_rolling" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+
+<div class="highchart html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-4bd52672c230ad6e0c88" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-4bd52672c230ad6e0c88">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Rolling 24-Month Skewness"},"yAxis":{"title":{"text":"skewness"},"opposite":false,"max":1,"min":-1},"credits":{"enabled":false},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"series":[{"data":[[1419984000000,-0.451445818045215],[1422662400000,-0.285729024111847],[1425081600000,-0.320507197924725],[1427760000000,-0.204341685633131],[1430352000000,-0.204418162016434],[1433030400000,-0.21153245972622],[1435622400000,-0.2131096658811],[1438300800000,-0.0971805183622694],[1440979200000,-0.428280837280172],[1443571200000,-0.433344762867999],[1446249600000,-0.167655823534503],[1448841600000,-0.0995969669325511],[1451520000000,0.0359306778045921],[1454198400000,0.0234017427689866],[1456704000000,0.0923117711159207],[1459382400000,0.39392052257868],[1461974400000,0.361743174775439],[1464652800000,0.44117365982673],[1467244800000,0.488940838412696],[1469923200000,0.32037750692967],[1472601600000,0.391478381138539],[1475193600000,0.334716262662977],[1477872000000,0.47848700677723],[1480464000000,0.427505461649331],[1483142400000,0.312713855892959],[1485820800000,0.176739032067602],[1488240000000,0.195479949422309],[1490918400000,0.108148751586469],[1493510400000,0.13235357185423],[1496188800000,0.0617529043476864],[1498780800000,-0.0372357412847154],[1501459200000,-0.155650320616236],[1504137600000,0.265572169401224],[1506729600000,0.203690270915865],[1509408000000,0.0832721379705332],[1512000000000,-0.0041580638804793],[1514678400000,0.0112145008084051]],"name":"Rolling skewness","color":"darkblue"}],"navigator":{"enabled":false},"scrollbar":{"enabled":false}},"theme":{"colors":["#f1c40f","#2ecc71","#9b59b6","#e74c3c","#34495e","#3498db","#1abc9c","#f39c12","#d35400"],"chart":{"backgroundColor":"#ECF0F1"},"xAxis":{"gridLineDashStyle":"Dash","gridLineWidth":1,"gridLineColor":"#BDC3C7","lineColor":"#BDC3C7","minorGridLineColor":"#BDC3C7","tickColor":"#BDC3C7","tickWidth":1},"yAxis":{"gridLineDashStyle":"Dash","gridLineColor":"#BDC3C7","lineColor":"#BDC3C7","minorGridLineColor":"#BDC3C7","tickColor":"#BDC3C7","tickWidth":1},"legendBackgroundColor":"rgba(0, 0, 0, 0.5)","background2":"#505053","dataLabelsColor":"#B0B0B3","textColor":"#34495e","contrastTextColor":"#F0F0F3","maskColor":"rgba(255,255,255,0.3)"},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadCSV":"Download CSV","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","downloadXLS":"Download XLS","drillUpText":"◁ Back to {series.name}","exitFullscreen":"Exit from full screen","exportData":{"annotationHeader":"Annotations","categoryDatetimeHeader":"DateTime","categoryHeader":"Category"},"hideData":"Hide data table","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbolMagnitude":1000,"numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"shortWeekdays":["Sat","Sun","Mon","Tue","Wed","Thu","Fri"],"thousandsSep":" ","viewData":"View data table","viewFullscreen":"View in full screen","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"stock","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7: Rolling Skewness</figcaption><p></p>
+</figure>
+</div>
+</div>
+</section>
+</div>
+<div id="tabset-2-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-5-tab">
+<p>Since it will be the same work as we did in skewness for the returns visualization part, except now we are more interested in both tails. One could repeat the exact same code and marking or shading the tails at 2 standard deviations above and below the mean return. We are goin straight to the rolling Kurtosis.</p>
+<p>One should keep in mind that the normal distribution has a kurtosis of <span class="math inline">\(3\)</span>, and a distribution with kurtosis less than <span class="math inline">\(3\)</span> or greater than <span class="math inline">\(3\)</span> means that we have fewer returns in the tails than the normal or we have more returns in the tails than the normal, respectively. This measure is important because more bad returns in the tails means that the portfolio might be at risk of a rare but huge downside event. The <span class="math inline">\(24\)</span> month kurtosis in <a href="#fig-kurt_rolling">Figure&nbsp;8</a> shows an increasing rolling kurtosis since <span class="math inline">\(2015\)</span>, the risk level increased at the end of the period exceeding three.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>kurt_xts <span class="ot">=</span> <span class="fu">kurtosis</span>(portfolio_returns_xts_monthly<span class="sc">$</span>returns)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>window <span class="ot">=</span> <span class="dv">24</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    rolling_kurt_xts <span class="ot">=</span> <span class="fu">rollapply</span>  (portfolio_returns_xts_monthly,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">FUN =</span> kurtosis,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">width =</span> window) <span class="sc">%&gt;%</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">na.omit</span>()</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">highchart</span>(<span class="at">type =</span> <span class="st">"stock"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_title</span>(<span class="at">text =</span> <span class="st">"Rolling 24-Month kurtosis"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_add_series</span>(rolling_kurt_xts,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">name =</span> <span class="st">"Rolling 24-Month kurtosis"</span>,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_yAxis</span>(<span class="at">title =</span> <span class="fu">list</span>(<span class="at">text =</span> <span class="st">"kurtosis"</span>),</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">opposite =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_add_theme</span>(<span class="fu">hc_theme_flat</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_navigator</span>(<span class="at">enabled =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_scrollbar</span>(<span class="at">enabled =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hc_exporting</span>(<span class="at">enabled =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="fig-kurt_rolling" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+
+<div class="highchart html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-91097309d04c84accbb2" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-91097309d04c84accbb2">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"Rolling 24-Month kurtosis"},"yAxis":{"title":{"text":"kurtosis"},"opposite":false},"credits":{"enabled":false},"exporting":{"enabled":true},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"series":[{"data":[[1419984000000,-0.45295275435272],[1422662400000,-0.569219429087445],[1425081600000,-0.689580874386536],[1427760000000,-0.766989944901912],[1430352000000,-0.767108762706002],[1433030400000,-0.755329815334189],[1435622400000,-0.722578531880766],[1438300800000,-0.609617605225619],[1440979200000,-0.215674999259388],[1443571200000,-0.373198542032366],[1446249600000,-0.26145795237513],[1448841600000,-0.220276385946268],[1451520000000,-0.363595636249227],[1454198400000,-0.367770408780077],[1456704000000,-0.0424714246475086],[1459382400000,-0.00317293418778819],[1461974400000,-0.0477802502850238],[1464652800000,0.0682574982581836],[1467244800000,0.180706443559267],[1469923200000,-0.147443773840722],[1472601600000,0.0108249990660134],[1475193600000,0.233221057834974],[1477872000000,0.321570143030903],[1480464000000,0.220936357559633],[1483142400000,0.158015945135627],[1485820800000,0.104496454912564],[1488240000000,0.451159742859414],[1490918400000,0.438435956193613],[1493510400000,0.497677631600649],[1496188800000,0.475524716639443],[1498780800000,0.638273885902597],[1501459200000,0.604146784773212],[1504137600000,0.834700144597976],[1506729600000,1.21546243390447],[1509408000000,2.1340143062624],[1512000000000,2.22390624053824],[1514678400000,3.37157542099355]],"name":"Rolling 24-Month kurtosis","color":"darkblue"}],"navigator":{"enabled":false},"scrollbar":{"enabled":false}},"theme":{"colors":["#f1c40f","#2ecc71","#9b59b6","#e74c3c","#34495e","#3498db","#1abc9c","#f39c12","#d35400"],"chart":{"backgroundColor":"#ECF0F1"},"xAxis":{"gridLineDashStyle":"Dash","gridLineWidth":1,"gridLineColor":"#BDC3C7","lineColor":"#BDC3C7","minorGridLineColor":"#BDC3C7","tickColor":"#BDC3C7","tickWidth":1},"yAxis":{"gridLineDashStyle":"Dash","gridLineColor":"#BDC3C7","lineColor":"#BDC3C7","minorGridLineColor":"#BDC3C7","tickColor":"#BDC3C7","tickWidth":1},"legendBackgroundColor":"rgba(0, 0, 0, 0.5)","background2":"#505053","dataLabelsColor":"#B0B0B3","textColor":"#34495e","contrastTextColor":"#F0F0F3","maskColor":"rgba(255,255,255,0.3)"},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadCSV":"Download CSV","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","downloadXLS":"Download XLS","drillUpText":"◁ Back to {series.name}","exitFullscreen":"Exit from full screen","exportData":{"annotationHeader":"Annotations","categoryDatetimeHeader":"DateTime","categoryHeader":"Category"},"hideData":"Hide data table","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbolMagnitude":1000,"numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"shortWeekdays":["Sat","Sun","Mon","Tue","Wed","Thu","Fri"],"thousandsSep":" ","viewData":"View data table","viewFullscreen":"View in full screen","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"stock","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+<p></p><figcaption class="figure-caption">Figure&nbsp;8: Rolling Kurtosis</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
